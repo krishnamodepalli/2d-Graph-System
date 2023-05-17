@@ -1,0 +1,11 @@
+
+# vscode files and folders.
+.vscode/**
+*.code-workspace
+
+# Ignorable files by Krishna Modepalli.
+run
+out/
+Makefile
+
+src/Numbers.*
