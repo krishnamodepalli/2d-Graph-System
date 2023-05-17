@@ -1,27 +1,16 @@
 #include "Line.h"
-#include "Numbers.h"
-#include <cmath>
-#include <sstream>
-#include <iomanip>
-
 
 Line::Line(float a, float b, float c)
+    :m_a{a}, m_b{b}, m_c{c}
 {
-    m_a = a;
-    m_b = b;
-    m_c = c;
-
     slope = - m_a / m_b;
     y_intercept = - m_c / m_b;
     x_intercept = - m_c / m_a;
 }
 
 Line::Line(float m, float c)    // m: slope, c: y_intercept
+    : m_a{m}, m_b{-1}, m_c{c}
 {
-    m_a = m;
-    m_b = -1;
-    m_c = c;
-
     slope = m;
     y_intercept = c;
     x_intercept = -c / m;
@@ -53,9 +42,20 @@ float Line::distanceFrom(Point p)
 float Line::distanceFrom(Line l)
 {
     if (slope == l.slope) {
-        
+        float numerator {std::abs(y_intercept - l.getY_intercept())};
+        float denominator {std::sqrt(1 + slope*slope)};
+
+        float result {numerator / denominator};
+        return result;
     }
     return 0.0f;
+}
+
+float *Line::getValues()
+{
+    float* result = new float[3] {m_a, m_b, m_c};
+
+    return result;
 }
 
 string Line::toString()
@@ -63,8 +63,8 @@ string Line::toString()
     std::stringstream ss;
     ss << std::fixed << std::setprecision(2);
 
-    ss << m_a << "X " << (m_b<0?"+ ":"- ") << std::abs(m_b) << "Y " << (m_c<0?"- ":"+ ") << std::abs(m_c) << " = 0";
-    // ss << Numbers::numPrint(m_a) << "X " << Numbers::numPrint(m_b) << "Y " << Numbers::numPrint(m_c) << " = 0";
+    // ss << m_a << "X " << (m_b<0?"+ ":"- ") << std::abs(m_b) << "Y " << (m_c<0?"- ":"+ ") << std::abs(m_c) << " = 0";
+    ss << Numbers::numPrint(m_a) << "X " << Numbers::numPrint(m_b) << "Y " << Numbers::numPrint(m_c) << " = 0";
     return ss.str();
 }
 
@@ -101,3 +101,12 @@ Line Line::getX_axis() { return Line(0, 1, 0); }
 Line Line::getY_axis() { return Line(1, 0, 0); }
 
 Line Line::getLinefromPoints(Point p1, Point p2) { return Line(p1, p2); }
+
+std::ostream &operator<<(std::ostream &stream, Line l)
+{
+    float *values = l.getValues();
+
+    stream << *values << "X + " << *(values + 1) << "Y + " << *(values + 2) << " = 0";
+    delete[] values;
+    return stream;
+}

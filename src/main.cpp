@@ -7,10 +7,12 @@
 // There are more explained exmaples and usages in Usage.md file.
 int main()
 {
-    Point p1 = Point(6, 8);
-    Point origin = Point::getOrigin();
+    Line l1(3, 8);
+    Line l2(3, 1);
 
-    std::cout << p1.distanceTo(origin) << std::endl;
+    std::cout << "Distance bwtween two parallel lines l1 & l2 is : " << l1.distanceFrom(l2) << " units." << std::endl;
+    std::cout << l1.isParallelTo(l2) << std::endl;
+
 
     return 0;
 }

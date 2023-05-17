@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <ostream>
 using std::string;
 
 class Point
@@ -14,11 +15,13 @@ public:
 
     Point static getOrigin();
 
-    float distanceFrom(Point p);
-    float distanceTo(Point p);
-    float distanceFromOrigin();
-    float getQuadrant();
+    float distanceFrom(Point p) const;
+    float distanceTo(Point p) const;
+    float distanceFromOrigin() const;
+    float getQuadrant() const;
 
-    float getX();
-    float getY();
+    float getX() const;
+    float getY() const;
 };
+
+std::ostream& operator<<(std::ostream &, Point);
