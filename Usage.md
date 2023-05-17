@@ -7,8 +7,8 @@ them  with some methods.
 > Every Class have a method `to_string()` which gives a string form 
 > of the Class (Point or Line).
 
-> At this stage, the `Line` class may have some bugs or may be incomplete. 
-> But the Point class is up-to date and clear of bugs. 
+> All the bugs in the `Line` class have been removed and is completely 
+> bug free. Can be used freely without issues. 
 
 ## Classes
 There are two classes defined in this project. They are:
@@ -54,9 +54,9 @@ with Lines and Points.
 **Constructers.**  
 The Line Class have three constructers. 
 ```cpp
-Line(Point, Point)          //  This creates a line instance from 2 Points.
-Line(m_a, m_b, m_c)         //  This creates a line instance from 3 floats viz. the co-efficients.
-Line(slope, y_intercept)    //  This creates a line instance from slope & y_intercept of the Line.
+Line(Point, Point);         //  This creates a line instance from 2 Points.
+Line(m_a, m_b, m_c);        //  This creates a line instance from 3 floats viz. the co-efficients.
+Line(slope, y_intercept);   //  This creates a line instance from slope & y_intercept of the Line.
                             //+ (as a slope-intercept form).
 ```
 
