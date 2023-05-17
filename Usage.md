@@ -4,8 +4,10 @@ This is cpp language written program to simulate points and lines
 on the console mathematically (not graphically), and manipulating 
 them  with some methods.
 
-> Every Class have a method `to_string()` which gives a string form 
-> of the Class (Point or Line).
+> The `toString()` method is replaced by the operator<< overloading the 
+> respective classes. You can directly use `cout << Point(2, 3);` instead. 
+> The `toString()` method is also available now for the sake of 
+> better code.
 
 > All the bugs in the `Line` class have been removed and is completely 
 > bug free. Can be used freely without issues. 
