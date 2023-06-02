@@ -16,10 +16,9 @@ Line::Line(float m, float c)    // m: slope, c: y_intercept
     x_intercept = -c / m;
 }
 
-Line::Line(Point p1, Point p2)
-{
-    slope = calcSlope(p1, p2);
-    y_intercept = p1.getY() - p1.getX()*slope;
+Line::Line(const Point &point1, const Point &point2) {
+    slope = calcSlope(point1, point2);
+    y_intercept = point1.getY() - point1.getX() * slope;
     x_intercept = -y_intercept / slope;
 
     m_a = slope;
@@ -27,22 +26,24 @@ Line::Line(Point p1, Point p2)
     m_c = y_intercept;
 }
 
-float Line::distanceFrom(Point p)
-{
+const Line Line::x_axis {0.0f, 1.0f, 0.0f};
+
+const Line Line::y_axis {1.0f, 0.0f, 0.0f};
+
+float Line::distanceFrom(const Point& point) const {
     /*
     Formula :
 
     dist = (|ax0 + by0 + c|) / sqrt(a*a + b*b)
     */
-    float numerator = std::abs(m_a*p.getX() + m_b*p.getY() + m_c);
+    float numerator = std::abs(m_a * point.getX() + m_b * point.getY() + m_c);
     float denominator = std::sqrt(m_a*m_a + m_b*m_b);
     return numerator / denominator;
 }
 
-float Line::distanceFrom(Line l)
-{
-    if (slope == l.slope) {
-        float numerator {std::abs(y_intercept - l.getY_intercept())};
+float Line::distanceFrom(const Line& line) const {
+    if (slope == line.slope) {
+        float numerator {std::abs(y_intercept - line.getY_intercept())};
         float denominator {std::sqrt(1 + slope*slope)};
 
         float result {numerator / denominator};
@@ -51,27 +52,24 @@ float Line::distanceFrom(Line l)
     return 0.0f;
 }
 
-float *Line::getValues()
-{
+float * Line::getValues() const {
     float* result = new float[3] {m_a, m_b, m_c};
 
     return result;
 }
 
-string Line::toString()
-{
+std::string Line::toString() {
     std::stringstream ss;
     ss << std::fixed << std::setprecision(2);
 
-    // ss << m_a << "X " << (m_b<0?"+ ":"- ") << std::abs(m_b) << "Y " << (m_c<0?"- ":"+ ") << std::abs(m_c) << " = 0";
-    ss << Numbers::numPrint(m_a) << "X " << Numbers::numPrint(m_b) << "Y " << Numbers::numPrint(m_c) << " = 0";
+     ss << m_a << "X " << (m_b<0?"+ ":"- ") << std::abs(m_b) << "Y " << (m_c<0?"- ":"+ ") << std::abs(m_c) << " = 0";
+//    ss << Numbers::numPrint(m_a) << "X " << Numbers::numPrint(m_b) << "Y " << Numbers::numPrint(m_c) << " = 0";
     return ss.str();
 }
 
-string Line::toGeneralForm() { return toString(); }
+std::string Line::toGeneralForm() { return toString(); }
 
-string Line::toSlopeForm()
-{
+std::string Line::toSlopeForm() {
     std::stringstream ss;
     ss << std::fixed << std::setprecision(2);
 
@@ -79,32 +77,31 @@ string Line::toSlopeForm()
     return ss.str();
 }
 
-bool Line::ifPointExists(Point p) { return (m_a*p.getX() +  m_b*p.getY() + m_c == 0) ? true : false; }
+bool Line::ifPointExists(const Point& point) const { return (m_a * point.getX() + m_b * point.getY() + m_c == 0); }
 
-bool Line::isParallelTo(Line l) { return (l.slope == slope) ? true : false; }
+bool Line::isParallelTo(const Line& line) const { return (line.slope == slope); }
 
-float Line::calcSlope(Line line) { return line.getSlope(); }
+float Line::calcSlope(const Line &line) { return line.getSlope(); }
 
-float Line::calcSlope(Point p1, Point p2)
-{
-    float m = (p1.getX() - p2.getX()) / (p1.getY() - p2.getY());
+float Line::calcSlope(const Point& point1, const Point& point2) {
+    float m = (point1.getX() - point2.getX()) / (point1.getY() - point2.getY());
     return m;
 }
 
-float Line::getSlope() { return slope; }
+// returns the slope of the line object.
+float Line::getSlope() const { return slope; }
 
-float Line::getX_intercept() { return x_intercept; }
+float Line::getX_intercept() const { return x_intercept; }
 
-float Line::getY_intercept() { return y_intercept; }
+float Line::getY_intercept() const { return y_intercept; }
 
-Line Line::getX_axis() { return Line(0, 1, 0); }
-Line Line::getY_axis() { return Line(1, 0, 0); }
+const Line & Line::getX_axis() { return x_axis; }
+const Line & Line::getY_axis() { return y_axis; }
 
-Line Line::getLinefromPoints(Point p1, Point p2) { return Line(p1, p2); }
+Line Line::getLineFromPoints(const Point& point1, const Point& point2) { return {point1, point2}; }
 
-std::ostream &operator<<(std::ostream &stream, Line l)
-{
-    float *values = l.getValues();
+std::ostream &operator<<(std::ostream &stream, const Line &line) {
+    float *values = line.getValues();
 
     stream << *values << "X + " << *(values + 1) << "Y + " << *(values + 2) << " = 0";
     delete[] values;

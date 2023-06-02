@@ -1,11 +1,8 @@
 
-# vscode files and folders.
-.vscode/**
-*.code-workspace
+# .idea files and folder.
+.idea
 
 # Ignorable files by Krishna Modepalli.
 run
 out/
 Makefile
-
-src/Numbers.*
