@@ -10,7 +10,7 @@ class Line {
 private:
     // These are the values of the co-efficients of X, Y, and a constant that forms a line.
     float m_a, m_b, m_c;        // ax + by + c = 0
-    // The slope private member of a line instance. No line would exist without slope.
+    // The slope private member of a line instance. No line would exist without the slope.
     float slope;
     // The X & Y intercept private member of a line instance. No line would exist without X & Y intercepts.
     float y_intercept, x_intercept;
@@ -32,15 +32,18 @@ public:
     // line, which are also enough for the construction of a line in real-time.
     Line(float, float);
 
-    // Another way of forming a line, is just by joining the given 2 Points. Just pass the
+    // Another way of forming a line, is just by joining the given 2 Points. Just pass the references to the Points.
     Line(const Point &point1, const Point &point2);
+
+    // Copy Constructor
+    Line(const Line&);
 
     /**
      * @brief This method returns a float value of distance from a point to a Line perpendicularly.
      * @param point : const Point reference.
      * @return perpendicular distance from the provided point, as a floating point decimal.
      * */
-    float distanceFrom(const Point &point) const;
+    [[nodiscard]] float distanceFrom(const Point &point) const;
 
     /**
      * @brief This method returns the perpendicular distance from the argument passed line object, if it is
@@ -48,16 +51,18 @@ public:
      * @param line : const Line reference.
      * @return perpendicular distance from the provided parallel line, as a floating point decimal.
      * */
-    float distanceFrom(const Line &line) const;
+    [[nodiscard]] float distanceFrom(const Line &line) const;
 
-    float * getValues() const;
+    [[nodiscard]] float * getValues() const;
 
-    // Deprecated, but still in use by communities 😅. But this printing the functionality object to console is
-    // done by the operator<< overloading in the header file. You can use it without issues.
+    [[deprecated("Use the overloaded << operator, using `cout << line;`")]]
+    // This method is completely deprecated.
+    // But this printing the functionality object to console is
+    // done by the operator<< overloading in the header file.
+    // You can use operator<< without issues.
     std::string toString();
 
-    std::string
-    toGeneralForm(); // This is same as the toString() method, but added for readable and understandable code.
+    [[deprecated("Use the overloaded << operator, using `cout << line;`")]]
     std::string toSlopeForm();   // We get the slope form of the line, unlike the above 2 methods.
 
     /**
@@ -65,14 +70,14 @@ public:
      * @param point : const Point reference
      * @return boolean value if the provided point is on the current line.
      * */
-    bool ifPointExists(const Point &point) const;
+    [[nodiscard]] bool ifPointExists(const Point &point) const;
 
     /**
      * @brief This method checks if the passed Line is parallel to our line, returns a bool.
      * @param line : const Line reference
      * @return boolean if the provided line reference is parallel to the current line.
      * */
-    bool isParallelTo(const Line &line) const;
+    [[nodiscard]] bool isParallelTo(const Line &line) const;
 
     /**
      * @brief Calculate the slope of the passed Line reference, and return a floating point value.
@@ -86,13 +91,13 @@ public:
 
 
     // returns the slope as a floating value, which is a private member "slope".
-    float getSlope() const;
+    [[nodiscard]] float getSlope() const;
 
     // returns the Y-intercept as a floating value, which is a private member "y_intercept"
-    float getX_intercept() const;
+    [[nodiscard]] float getX_intercept() const;
 
     // returns the X-intercept as a floating value, which is a private member "x_intercept"
-    float getY_intercept() const;
+    [[nodiscard]] float getY_intercept() const;
 
 
     // Returns a line instance of X-axis.
