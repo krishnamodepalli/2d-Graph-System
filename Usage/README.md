@@ -7,7 +7,7 @@ them  with some methods.
 > The `toString()` method is replaced by the operator<< overloading the 
 > respective classes. You can directly use `cout << Point(2, 3);` instead. 
 > The `toString()` method is also available now for the sake of 
-> better code.
+> better code. Also the `toString()` method is now deprecated.
 
 > All the bugs in the `Line` class have been removed and is completely 
 > bug free. Can be used freely without issues. 
@@ -92,11 +92,14 @@ instance of the Combination of 2 Points, And the `calcSlope(const Point &, const
 is for calculating the slope of the Line formed by the two Points.  
 
 The Line class also have much more line equation formatting functions 
-to mathematically represent the lines:
+to mathematically represent the lines(Note that the following methods are 
+deprecated now):
 1. `toString()`
     - Normal string representation of a line.
 2. `toGeneralForm()`
     - Convert the line into General form and return a string of equation of line.
+    - Unfortunately, this method has to be removed from the member functions.
+      Maybe added later.
 3. `toSlopeForm()`
     - Convert the line into Slope form and return a string of equation of line.
 

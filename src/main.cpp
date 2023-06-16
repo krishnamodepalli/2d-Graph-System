@@ -7,8 +7,9 @@
 // There are more explained examples and usages in Usage.md file.
 int main()
 {
-    Point point(3.0f, 4.0f);
-    std::cout << point.distanceFromOrigin() << '\n';
+    std::cout << Line(0., 1.3, 0) << '\n';
+    std::cout << Line(1, 8) << '\n';
+    std::cout << Line(1.2, 0., -119) << '\n';
 
     return 0;
 }

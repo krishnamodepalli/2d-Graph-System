@@ -26,6 +26,17 @@ Line::Line(const Point &point1, const Point &point2) {
     m_c = y_intercept;
 }
 
+Line::Line(const Line &line) {
+    auto values = line.getValues();
+    m_a = *values;
+    m_b = *(values + 1);
+    m_c = *(values + 2);
+
+    slope = - m_a / m_b;
+    y_intercept = - m_c / m_b;
+    x_intercept = - m_c / m_a;
+}
+
 const Line Line::x_axis {0.0f, 1.0f, 0.0f};
 
 const Line Line::y_axis {1.0f, 0.0f, 0.0f};
@@ -67,8 +78,6 @@ std::string Line::toString() {
     return ss.str();
 }
 
-std::string Line::toGeneralForm() { return toString(); }
-
 std::string Line::toSlopeForm() {
     std::stringstream ss;
     ss << std::fixed << std::setprecision(2);
@@ -102,8 +111,28 @@ Line Line::getLineFromPoints(const Point& point1, const Point& point2) { return 
 
 std::ostream &operator<<(std::ostream &stream, const Line &line) {
     float *values = line.getValues();
+    bool first_term = true;
+    short item = 0;
+    for ( short i = 0; i < 2; i++ ) {
+        item++;
+        float term = *(values + i);
+        if ( term == 0 ) continue;
+        else if ( term < 0 )
+            stream << "- " << -term;
+        else if ( term > 0 ) {
+            if ( !first_term )
+                stream << " +";
+            stream << " " << term;
+        }
+        if (item == 1)
+            stream << "X ";
+        else if (item == 2 )
+            stream << "Y ";
+        first_term = false;
+    }
+    stream << "= " << *(values + 2);
 
-    stream << *values << "X + " << *(values + 1) << "Y + " << *(values + 2) << " = 0";
+//    stream << *values << "X + " << *(values + 1) << "Y + " << *(values + 2) << " = 0";    // The older version.
     delete[] values;
     return stream;
 }
