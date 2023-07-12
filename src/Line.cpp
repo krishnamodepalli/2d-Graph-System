@@ -1,8 +1,11 @@
-#include "Line.h"
+#include "Line.hpp"
 
 Line::Line(float a, float b, float c)
     :m_a{a}, m_b{b}, m_c{c}
 {
+    if (m_a == 0 && m_b == 0)
+        throw std::invalid_argument("A line cannot have both the co-efficients 0.");
+
     slope = - m_a / m_b;
     y_intercept = - m_c / m_b;
     x_intercept = - m_c / m_a;
@@ -28,9 +31,9 @@ Line::Line(const Point &point1, const Point &point2) {
 
 Line::Line(const Line &line) {
     auto values = line.getValues();
-    m_a = *values;
-    m_b = *(values + 1);
-    m_c = *(values + 2);
+    m_a = values[0];
+    m_b = values[1];
+    m_c = values[2];
 
     slope = - m_a / m_b;
     y_intercept = - m_c / m_b;
@@ -109,20 +112,40 @@ const Line & Line::getY_axis() { return y_axis; }
 
 Line Line::getLineFromPoints(const Point& point1, const Point& point2) { return {point1, point2}; }
 
+Point Line::intersection_point_with_line(const Line &line) {
+    return Point::getOrigin();
+}
+
+// Operator functions.
+
+Line Line::operator*(float multiplier) {
+    return {this->m_a * multiplier, this->m_b * multiplier, this->m_c * multiplier};
+}
+
+Line Line::operator+(Line &line) {
+    auto values = getValues();
+
+    return {this->m_a + values[0] , this->m_b + values[1] , this->m_c + values[2]};
+}
+
+bool Line::operator==(Line &line) {
+    return (this->slope == line.getSlope() && this->y_intercept == line.getY_intercept());
+}
+
 std::ostream &operator<<(std::ostream &stream, const Line &line) {
     float *values = line.getValues();
     bool first_term = true;
     short item = 0;
-    for ( short i = 0; i < 2; i++ ) {
+    for ( short i = 0; i < 3; i++ ) {
         item++;
-        float term = *(values + i);
+        float term = values[i];
         if ( term == 0 ) continue;
         else if ( term < 0 )
             stream << "- " << -term;
         else if ( term > 0 ) {
             if ( !first_term )
-                stream << " +";
-            stream << " " << term;
+                stream << "+ ";
+            stream << term;
         }
         if (item == 1)
             stream << "X ";
@@ -130,7 +153,7 @@ std::ostream &operator<<(std::ostream &stream, const Line &line) {
             stream << "Y ";
         first_term = false;
     }
-    stream << "= " << *(values + 2);
+    stream << " = 0";
 
 //    stream << *values << "X + " << *(values + 1) << "Y + " << *(values + 2) << " = 0";    // The older version.
     delete[] values;

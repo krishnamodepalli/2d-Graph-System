@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Point.h"
+#include "Point.hpp"
 #include <string>
 #include <cmath>
 #include <iomanip>
 #include <ostream>
+#include <stdexcept>
 
 class Line {
 private:
@@ -18,6 +19,8 @@ private:
     static const Line x_axis;
 
     static const Line y_axis;
+
+    Line operator+(Line &line);
 
 public:
     /**
@@ -37,6 +40,14 @@ public:
 
     // Copy Constructor
     Line(const Line&);
+
+    // Line Arithmetics.
+
+    // Returns a new Line instance which is the multiplies version of the current line instance.
+    Line operator*(float multiplier);
+
+    // To check if the two lines are the same or not.
+    bool operator==(Line &line);
 
     /**
      * @brief This method returns a float value of distance from a point to a Line perpendicularly.
@@ -108,7 +119,10 @@ public:
 
     // Returns a line instance which is formed by joining the given 2 Point references.
     Line static getLineFromPoints(const Point &point1, const Point &point2);
+
+    Point intersection_point_with_line(const Line &line);
 };
 
 // To print the Line instance to console which looks like a mathematical equation.
+// This prints the line in the form aX + bY + c = 0.
 std::ostream &operator<<(std::ostream &, const Line &);

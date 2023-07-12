@@ -1,5 +1,5 @@
 #include <cmath>
-#include "Point.h"
+#include "Point.hpp"
 
 Point::Point(float x, float y)
     : m_X{x}, m_Y{y} {}
