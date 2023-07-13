@@ -2,7 +2,13 @@
 # .idea files and folder.
 .idea
 
+# vscode files
+.vscode
+*.code-workspace
+
 # Ignorable files by Krishna Modepalli.
 run
-out/
-Makefile
+
+# C++ bins and objs.
+bin/
+objs/

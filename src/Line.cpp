@@ -112,8 +112,21 @@ const Line & Line::getY_axis() { return y_axis; }
 
 Line Line::getLineFromPoints(const Point& point1, const Point& point2) { return {point1, point2}; }
 
-Point Line::intersection_point_with_line(const Line &line) {
-    return Point::getOrigin();
+Point Line::getIntersectionPoint(const Line &line) {
+    float x = (line.getY_intercept() - y_intercept) / (slope - line.getSlope());
+    float y = slope * x + y_intercept;
+
+    return Point(x, y);
+}
+
+float Line::getAngleBetween(const Line &line) const {
+    float m1 = slope;
+    float m2 = line.getSlope();
+
+    float tan_theta = std::abs((m2 - m1) / (1 + m1 * m2));
+    float theta = std::atan(tan_theta);
+
+    return theta;
 }
 
 // Operator functions.
@@ -123,7 +136,7 @@ Line Line::operator*(float multiplier) {
 }
 
 Line Line::operator+(Line &line) {
-    auto values = getValues();
+    auto values = line.getValues();
 
     return {this->m_a + values[0] , this->m_b + values[1] , this->m_c + values[2]};
 }

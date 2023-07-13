@@ -6,6 +6,11 @@ Point::Point(float x, float y)
 
 const Point Point::Origin {0.0f, 0.0f};
 
+Point::Point(const Point &point) {
+    this->m_X = point.getX();
+    this->m_Y = point.getY();
+}
+
 std::string Point::toString() { return "( " + std::to_string(m_X) + ", " + std::to_string(m_Y) + " )"; }
 
 const Point& Point::getOrigin() { return Origin; }

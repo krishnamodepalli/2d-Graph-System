@@ -16,15 +16,15 @@ private:
     // The X & Y intercept private member of a line instance. No line would exist without X & Y intercepts.
     float y_intercept, x_intercept;
 
+    Line operator+(Line &line);
+
+public:
     static const Line x_axis;
 
     static const Line y_axis;
 
-    Line operator+(Line &line);
-
-public:
     /**
-     * @breif
+     * @brief
      * This is the basic constructor that a Line object can be instantiated. We need to pass 3 floating point values,
      * viz., the co-efficients of the X, Y and a constant which forms the mathematical equation aX + bY + C = 0.
      * @return Line instance
@@ -120,7 +120,16 @@ public:
     // Returns a line instance which is formed by joining the given 2 Point references.
     Line static getLineFromPoints(const Point &point1, const Point &point2);
 
-    Point intersection_point_with_line(const Line &line);
+    /**
+     * @brief This method returns a Point instance which is the intersection 
+     * point of the current line and the line passed as argument.
+     * @param line - const Line reference
+     * @return Point instance which is the intersection point of the current
+     * line and the line passed as argument.
+     */
+    Point getIntersectionPoint(const Line &line);
+
+    float getAngleBetween(const Line &line) const;
 };
 
 // To print the Line instance to console which looks like a mathematical equation.

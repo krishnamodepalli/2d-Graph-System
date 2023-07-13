@@ -6,7 +6,10 @@
 // There are more explained examples and usages in Usage.md file.
 int main()
 {
-    std::cout << Line(-2, -3, -5) << '\n';
+    Line a(3, -1, -3);
+    Line b(2.3, -1, 4);
+
+    std::cout << a.getIntersectionPoint(b) << std::endl;
 
     return 0;
 }

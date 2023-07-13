@@ -8,7 +8,7 @@ private:
     float m_X, m_Y;
 
     // This static Point Origin is a constant so that any other program cannot change it, and we
-    // use it to pass a reference to this Point, whenever a program is needed a Point.
+    // use it to pass a reference to this Point, whenever a program is needed an Origin Point.
     const static Point Origin;
 
 public:
@@ -18,6 +18,11 @@ public:
     // The params of the constructor are not references, this is because the author is willing to make the
     // construction of the Point object to be as simple & easy, like `Point (1, 3);`
 
+    // Copy Constructor
+    Point(const Point &);
+
+    [[deprecated("Consider using the overloaded << operator to directly print"
+    "the Point object.")]]
     // toString method to produce a string literal for the mathematical representation of the Point.
     std::string toString();
 
