@@ -131,14 +131,24 @@ float Line::getAngleBetween(const Line &line) const {
 
 // Operator functions.
 
-Line Line::operator*(float multiplier) {
-    return {this->m_a * multiplier, this->m_b * multiplier, this->m_c * multiplier};
-}
-
 Line Line::operator+(Line &line) {
     auto values = line.getValues();
 
     return {this->m_a + values[0] , this->m_b + values[1] , this->m_c + values[2]};
+}
+
+Line Line::operator-(Line &line) {
+    auto values = line.getValues();
+
+    return {this->m_a - values[0] , this->m_b - values[1] , this->m_c - values[2]};
+}
+
+Line Line::operator*(float factor) {
+    return { this->m_a * factor, this->m_b * factor, this->m_c * factor };
+}
+
+Line Line::operator/(float factor) {
+    return { this->m_a / factor, this->m_b / factor, this->m_c / factor };
 }
 
 bool Line::operator==(Line &line) {

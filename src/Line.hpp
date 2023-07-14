@@ -16,7 +16,17 @@ private:
     // The X & Y intercept private member of a line instance. No line would exist without X & Y intercepts.
     float y_intercept, x_intercept;
 
+    // Addition of two lines.
     Line operator+(Line &line);
+
+    // Subtraction of two lines.
+    Line operator-(Line &line);
+
+    // Multiplying a line with a number.
+    Line operator*(float factor);
+
+    // Dividing a line with a number.
+    Line operator/(float factor);
 
 public:
     static const Line x_axis;
@@ -41,11 +51,6 @@ public:
     // Copy Constructor
     Line(const Line&);
 
-    // Line Arithmetics.
-
-    // Returns a new Line instance which is the multiplies version of the current line instance.
-    Line operator*(float multiplier);
-
     // To check if the two lines are the same or not.
     bool operator==(Line &line);
 
@@ -66,11 +71,11 @@ public:
 
     [[nodiscard]] float * getValues() const;
 
-    [[deprecated("Use the overloaded << operator, using `cout << line;`")]]
     // This method is completely deprecated.
     // But this printing the functionality object to console is
     // done by the operator<< overloading in the header file.
     // You can use operator<< without issues.
+    [[deprecated("Use the overloaded << operator, using `cout << line;`")]]
     std::string toString();
 
     [[deprecated("Use the overloaded << operator, using `cout << line;`")]]

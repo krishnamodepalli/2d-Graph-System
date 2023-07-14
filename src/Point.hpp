@@ -11,6 +11,18 @@ private:
     // use it to pass a reference to this Point, whenever a program is needed an Origin Point.
     const static Point Origin;
 
+    // Addition of two Points.
+    Point operator+(const Point &point);
+
+    // Subtraction of two Points.
+    Point operator-(const Point &point);
+
+    // Multiplication of a Point with a number.
+    Point operator*(float factor);
+
+    // Division of a Point with a number.
+    Point operator/(float factor);
+
 public:
     // The only one way of constructing a Point object, given with 2 floating point decimal values, which
     // will be indicating as abscissa & ordinate.
@@ -21,9 +33,9 @@ public:
     // Copy Constructor
     Point(const Point &);
 
+    // toString method to produce a string literal for the mathematical representation of the Point.
     [[deprecated("Consider using the overloaded << operator to directly print"
     "the Point object.")]]
-    // toString method to produce a string literal for the mathematical representation of the Point.
     std::string toString();
 
 
@@ -35,14 +47,14 @@ public:
     /**
      * @brief Calculate the distance from the given const Point object reference to "this" (our Point) object in
      * default units as a floating point decimal.
-     * @param point : const Point reference.
+     * @param point const Point reference.
      * */
     float distanceFrom(const Point &point) const;
 
     /**
      * @brief Calculate the distance from the given const Point object reference to "this" (our Point)
      * object in default units as a floating point decimal.
-     * @param point : const Point reference.
+     * @param point const Point reference.
      * */
     float distanceTo(const Point &point) const;
 
@@ -53,8 +65,18 @@ public:
     float distanceFromOrigin() const;
 
     /**
+     * @brief It is a static method which takes in two Point references and
+     * calculate its mid_point
+     * 
+     * @param p1 const Point_1 reference
+     * @param p2 const Point_2 reference
+     * @return Point mid_point
+     */
+    Point static mid_point(Point &p1, Point &p2);
+
+    /**
      * @brief This method returns the Quadrant of "this" Point object, as a short integer.
-     * @return A short, indicating the quadrant. This do return -1 if the Point is not a valid one,
+     * @return A short int, indicating the quadrant. This do return -1 if the Point is not a valid one,
      * or in case of any error. Usually, this is not excepted, as far as the author trails,
      * this doesn't happen & he doesn't want it to happen.
      */

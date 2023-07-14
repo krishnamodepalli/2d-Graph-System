@@ -22,9 +22,11 @@ float Point::distanceFrom(const Point &point) const {
     return (float)std::sqrt(a * a + b * b);
 }
 
-float Point::distanceTo(const Point &point) const { return distanceFrom(point); }
+float Point::distanceTo(const Point &point) const { return distanceFrom(point);}
 
 float Point::distanceFromOrigin() const { return distanceFrom(getOrigin()); }
+
+Point Point::mid_point(Point &p1, Point &p2) { return (p1 + p2) / 2; }
 
 short Point::getQuadrant() const {
     if (m_X > 0) {
@@ -43,6 +45,18 @@ short Point::getQuadrant() const {
 float Point::getX() const { return m_X; }
 
 float Point::getY() const { return m_Y; }
+
+Point Point::operator+(const Point &point) {
+    return { m_X + point.getX(), m_Y + point.getY()};
+}
+
+Point Point::operator-(const Point &point) {
+    return { m_X - point.getX(), m_Y - point.getY()};
+}
+
+Point Point::operator*(float factor) { return { m_X * factor, m_Y * factor}; }
+
+Point Point::operator/(float factor) { return { m_X / factor, m_Y / factor}; }
 
 std::ostream &operator<<(std::ostream &stream, const Point &point) {
     stream << "(" << point.getX() << ", " << point.getY() << ")";
